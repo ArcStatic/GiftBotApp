@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">GiftBot</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="new_lists">Add/edit lists</string>
+    <string name="xmas_list">Christmas List</string>
+    <string name="birthday_list">Birthdays</string>
+    <string name="title_activity_list">ListActivity</string>
+    <string name="title_activity_christmas_list">ChristmasList</string>
+    <string name="facebook_app_id">1655128141393993</string>
+    <string name="view_list">View My List</string>
+    <string name="add_to_list">Add to List</string>
+    <string name="title_activity_view_my_list">ViewMyList</string>
+    <string name="title_activity_add_to_list">AddToList</string>
+    <string name="add_from">Add contacts from..</string>
+    <string name="facebook_add">Facebook</string>
+    <string name="contacts_list_add">Contacts</string>
+    <string name="manual_add">Neither, add manually</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_add_options_dialog">AddOptionsDialog</string>
+    <string name="title_activity_facebook_login">facebook_login</string>
+    <string name="title_activity_facebook_login_activity">facebook_login_activity</string>
+    <string name="title_activity_facebook_secondary_activity">facebook_secondary_activity</string>
+    <string name="title_activity_facebook_secondary">facebook_secondary</string>
+    <string name="title_activity_list_item_layout">ListItemLayout</string>
+    <string name="title_activity_list_format">ListFormat</string>
+    <string name="title_activity_contacts_list">contacts_list</string>
+    <string name="title_activity_contacttest">CONTACTTEST</string>
+    <string name="title_activity_contacts_fragment">ContactsFragment</string>
+    <string name="title_activity_contact_list_view_abandoned">ContactListViewAbandoned</string>
+    <string name="title_activity_enter_info">EnterInfo</string>
+    <string name="title_activity_list_dump">ListDump</string>
+    <string name="title_activity_list_profile">ListProfile</string>
+
+</resources>

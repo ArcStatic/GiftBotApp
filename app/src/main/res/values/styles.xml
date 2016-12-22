@@ -1,0 +1,47 @@
+<resources>
+
+    //FestiveRed theme
+    <style name="festive_red"
+        parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">@color/winered</item>
+    </style>
+
+    //Blue theme
+    <style name="gunmetal_blue"
+        parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/blueactionbar</item>
+
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/blueactionbar</item>
+    </style>
+
+    //Dark blue action bar
+    <style name="blueactionbar"
+        parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@color/darkblue</item>
+
+        <!-- Support library compatibility -->
+        //<item name="background">@color/darkblue</item>
+    </style>
+
+
+    //PylonBlue
+    <style name="pylonblue"
+        parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">@drawable/backgroundblue</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="buttonblue">
+        <item name="android:background">@color/darkblue</item>
+        <item name="android:textColor">@color/metalblue</item>
+    </style>
+
+
+    <style name="test"
+        parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">@color/test</item>
+    </style>
+
+
+</resources>

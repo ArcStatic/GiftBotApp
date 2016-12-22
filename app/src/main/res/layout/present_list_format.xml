@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <ImageView android:id="@+id/giftCheck"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        />
+
+    <LinearLayout android:layout_width="fill_parent"
+        android:id="@+id/textBlock"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/giftCheck"
+        >
+
+        <TextView
+            android:id="@+id/giftIdea"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp" />
+
+        <TextView
+            android:id="@+id/boughtState"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/listFriend"/>
+
+        <TextView
+            android:id="@+id/colourIndicator"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_below="@id/boughtCount"
+            android:paddingBottom="5dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/stateChange"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_toRightOf="@id/textBlock"
+        android:text="Bought!"
+        android:textSize="16sp" />
+
+    <ImageButton
+        android:id="@+id/deleteItem"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/cross"
+        android:onClick="clickDelete"/>
+
+
+</RelativeLayout>

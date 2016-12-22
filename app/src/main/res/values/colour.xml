@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="test">#52143D</color>
+    <color name="metalblue">#B3DBDC</color>
+    <color name="greyblue">#395E82</color>
+    <color name="darkblue">#20263F</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="dragonred">#DF0202</color>
+    <color name="winered">#7A0606</color>
+    <color name="bloodred">#520505</color>
+    <color name="icingwhite">#FBF2EF</color>
+    <color name="ghoul">#CCFFFFFF</color>
+
+
+</resources>
