@@ -113,6 +113,26 @@ public class ChristmasList extends AppCompatActivity {
         catch (Exception main){
             newFriendName = "BLANK";
             giftIdeasRawText = "NO IDEAS YET" ;
+
+        }
+
+        //If nobody is added, display 'get started' textView (nobodyAddedText)
+        //Hide names listView
+        if (friendNamesList.isEmpty()) {
+            TextView textView = (TextView) findViewById(R.id.nobodyAddedText);
+            textView.setVisibility(View.VISIBLE);
+            ListView listView = (ListView) findViewById(R.id.listView);
+            listView.setVisibility(View.GONE);
+
+            System.out.println("nobodyAdded message set");
+        } else {
+            //If people are added, hide nobodyAddedText and display list of names again
+            TextView textView = (TextView) findViewById(R.id.nobodyAddedText);
+            textView.setVisibility(View.GONE);
+            ListView listView = (ListView) findViewById(R.id.listView);
+            listView.setVisibility(View.VISIBLE);
+
+            System.out.println("list of names set");
         }
 
         TextView textView = (TextView) findViewById(R.id.nameTest);
@@ -122,6 +142,7 @@ public class ChristmasList extends AppCompatActivity {
         textView2.setText(giftIdeasRawText);
 
         System.out.println("!!!!FRIENDS ARRAY = " + friendNamesList);
+        System.out.println("!!!!FRIENDS ARRAY CHECK: " + friendNamesList.isEmpty());
         System.out.println("!!!!IDEAS RAW TEXT = " + giftIdeasRawText);
 
         CustomListAdapter adapter=new CustomListAdapter(this, friendNamesList, friendImageList, giftComplete, giftNotCompleteOuter);
@@ -162,6 +183,10 @@ public class ChristmasList extends AppCompatActivity {
 
     }
 
+    public void addContact(View view){
+        Intent intent = new Intent(ChristmasList.this, EnterInfo.class);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

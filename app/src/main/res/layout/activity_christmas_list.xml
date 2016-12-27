@@ -22,6 +22,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <TextView
+        android:id="@+id/nobodyAddedText"
+        android:background="@color/ghoul"
+        android:text="@string/nobody_added"
+        android:textColor="@color/darkblue"
+        android:onClick="addContact"
+        android:clickable="true"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
     <ListView android:id="@+id/listView"
         android:layout_below="@id/nameTest"
         android:layout_height="match_parent"

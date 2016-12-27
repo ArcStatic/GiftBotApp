@@ -6,6 +6,7 @@
     <string name="new_lists">Add/edit lists</string>
     <string name="xmas_list">Christmas List</string>
     <string name="birthday_list">Birthdays</string>
+    <string name="nobody_added">You haven\'t added anyone to your list yet... \n Tap to get started!</string>
     <string name="title_activity_list">ListActivity</string>
     <string name="title_activity_christmas_list">ChristmasList</string>
     <string name="facebook_app_id">1655128141393993</string>
