@@ -67,15 +67,36 @@ public class ListProfile extends AppCompatActivity {
             imgView.setImageBitmap(BitmapFactory.decodeFile(clickImg));
         }
 
-        String[] ideaSplit = giftIdeaRaw.split("\n");
-        //Split at every character
+
+        //Split ideas into separate items by newline char and comma
+        String[] ideaSplit = giftIdeaRaw.split("\n|,");
+
+        //Split giftstate at every character (ie. into individual digits)
         String[] stateSplit = giftStateRaw.split("(?!^)");
 
         //Construct bought state list (0 = not bought, 1 = bought)
+        //int j counter needed - bought state only recorded for actual ideas, not whitespace
+        int j = 0;
         for (int i=0; i < ideaSplit.length; i++){
-            giftIdeaList.add(ideaSplit[i]);
-            Integer newState = Integer.parseInt(stateSplit[i]);
-            giftStateList.add(newState);
+            //Strip leading whitespace character from gift entry if needed
+            //Capitalise first letter
+            //NOTE: first condition check to resolve crash caused by empty string resulting from using \n after a comma
+            //Second condition check to resolve crash caused by garbage input like ',,, ,    ,'
+            if ((!ideaSplit[i].equals("")) && (!(ideaSplit[i].trim()).equals(""))) {
+                if (ideaSplit[i].charAt(0) == ' ') {
+                    String ideaStripped = ideaSplit[i].replaceFirst("\\s", "");
+                    ideaStripped = (ideaStripped.substring(0, 1)).toUpperCase() + ideaStripped.substring(1);
+                    System.out.println("Regex attempted");
+                    giftIdeaList.add(ideaStripped);
+                } else {
+                    String ideaStripped = (ideaSplit[i].substring(0, 1)).toUpperCase() + ideaSplit[i].substring(1);
+                    giftIdeaList.add(ideaStripped);
+                }
+
+                Integer newState = Integer.parseInt(stateSplit[j]);
+                giftStateList.add(newState);
+                j++;
+            }
         }
 
         System.out.println("IdeaList check: " + giftIdeaList);

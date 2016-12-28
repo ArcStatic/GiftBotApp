@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,9 +78,16 @@ public class ChristmasList extends AppCompatActivity {
 
                 if (!giftIdeasRawText.equals("")) {
 
-                    String[] ideaSplit = giftIdeasRawText.split("\n");
+                    //Split ideas by newline char or comma
+                    String[] ideaSplit = giftIdeasRawText.split("\n|,");
                     rawGiftTextList.add(giftIdeasRawText);
-                    notBoughtCount = ideaSplit.length;
+                    //Increment notBoughtCount for items which are actual ideas, not just whitespace
+                    for (int i = 0; i < ideaSplit.length; i++){
+                        if ((!ideaSplit[i].equals("")) && (!(ideaSplit[i].trim()).equals(""))) {
+                            notBoughtCount++;
+                        }
+                    }
+                    //notBoughtCount = ideaSplit.length;
                     //Create inner array list
                     for (int x = 0; x < notBoughtCount; x++) {
                         giftNotCompleteInner.add(0);
@@ -89,8 +97,8 @@ public class ChristmasList extends AppCompatActivity {
                     //Output should be in format [[0,0,0,1],[0,1,1,1,0],[1,0] ... ] ...
                     giftNotCompleteOuter.add(giftNotCompleteInner);
 
-                    //If no ideas given, put marker integer 2
                 } else {
+                    //If no ideas given, put marker integer 2
                     giftIdeaState = "2";
                     rawGiftTextList.add("");
                     giftNotCompleteInner.add(2);
@@ -101,8 +109,9 @@ public class ChristmasList extends AppCompatActivity {
                 rawGiftStateList.add(giftIdeaState);
                 System.out.println("!!!!IDEA NOT BOUGHT COUNT = " + giftNotCompleteOuter);
                 System.out.println("!!!!IDEA BOUGHT COUNT = " + giftComplete);
-            //If activity is reached from ListProfile, update lists
+
             //} else {
+                //If activity is reached from ListProfile, update lists
 
             //}
 
@@ -116,27 +125,32 @@ public class ChristmasList extends AppCompatActivity {
 
         }
 
+        //Find views to prepare for context-based changes
+        TextView textView = (TextView) findViewById(R.id.nobodyAddedText);
+        ListView listView = (ListView) findViewById(R.id.listView);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.list_background);
+
         //If nobody is added, display 'get started' textView (nobodyAddedText)
         //Hide names listView
+        //Set robotsearch as background image
         if (friendNamesList.isEmpty()) {
-            TextView textView = (TextView) findViewById(R.id.nobodyAddedText);
             textView.setVisibility(View.VISIBLE);
-            ListView listView = (ListView) findViewById(R.id.listView);
             listView.setVisibility(View.GONE);
+            layout.setBackgroundResource(R.drawable.robotsearch);
 
             System.out.println("nobodyAdded message set");
         } else {
             //If people are added, hide nobodyAddedText and display list of names again
-            TextView textView = (TextView) findViewById(R.id.nobodyAddedText);
+            //Set backgroundbeta as background image
             textView.setVisibility(View.GONE);
-            ListView listView = (ListView) findViewById(R.id.listView);
             listView.setVisibility(View.VISIBLE);
+            layout.setBackgroundResource(R.drawable.backgroundbeta);
 
             System.out.println("list of names set");
         }
 
-        TextView textView = (TextView) findViewById(R.id.nameTest);
-        textView.setText(newFriendName);
+        TextView textView1 = (TextView) findViewById(R.id.nameTest);
+        textView1.setText(newFriendName);
 
         TextView textView2 = (TextView) findViewById(R.id.editTest);
         textView2.setText(giftIdeasRawText);

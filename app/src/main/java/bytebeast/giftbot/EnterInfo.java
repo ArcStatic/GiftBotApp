@@ -218,6 +218,7 @@ public class EnterInfo extends AppCompatActivity{
         EditText editField = (EditText) findViewById(R.id.contact_enter_name);
         String friendName = editField.getText().toString();
 
+        //Read raw text from gift ideas field
         EditText editField2 = (EditText) findViewById(R.id.contact_ideas);
         String contactIdeas = editField2.getText().toString();
 
