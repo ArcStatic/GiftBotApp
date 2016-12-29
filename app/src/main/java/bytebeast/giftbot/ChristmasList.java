@@ -111,6 +111,7 @@ public class ChristmasList extends AppCompatActivity {
                 System.out.println("!!!!IDEA BOUGHT COUNT = " + giftComplete);
 
             //} else {
+                //
                 //If activity is reached from ListProfile, update lists
 
             //}

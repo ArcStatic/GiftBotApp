@@ -18,6 +18,7 @@
     <string name="facebook_add">Facebook</string>
     <string name="contacts_list_add">Contacts</string>
     <string name="manual_add">Neither, add manually</string>
+    <string name="gift_delete">Gift deleted</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

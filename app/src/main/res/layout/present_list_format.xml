@@ -57,8 +57,18 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/cross"
         android:onClick="clickDelete"/>
+
+    <CheckBox
+        android:id="@+id/itemCheckbox"
+        android:padding="2px"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_toStartOf="@+id/deleteItem"
+        android:layout_toLeftOf="@id/deleteItem"/>
 
 
 </RelativeLayout>

@@ -37,9 +37,9 @@ public class PresentListAdapter extends ArrayAdapter<Integer> {
 
     }
 
-    public View getView(final int position,View view,ViewGroup parent) {
-        LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.present_list_format, null, true);
+    public View getView(final int position, View view, final ViewGroup parent) {
+        LayoutInflater inflater = context.getLayoutInflater();
+        View rowView = inflater.inflate(R.layout.present_list_format, null, true);
 
         ImageButton delete = (ImageButton) rowView.findViewById(R.id.deleteItem);
         TextView giftText = (TextView) rowView.findViewById(R.id.giftIdea);
@@ -72,7 +72,17 @@ public class PresentListAdapter extends ArrayAdapter<Integer> {
                 //RelativeLayout rl = (RelativeLayout)v.getParent();
                 //TextView tv = (TextView)rl.findViewById(R.id.giftIdea);
                 //String text = tv.getText().toString();
-                String text = "Tom smells";
+
+                //Remove item from gift ideas and delete its state
+                giftState.remove(position);
+                giftIdea.remove(position);
+
+                //Let ListProfile know that the data has changed
+                //Delete button specific - handled in onItemClick
+                ((ListView) parent).performItemClick(v, position, 0);
+
+                //Context needed to use getResources since this is an adaptor, not an activity
+                String text = context.getResources().getString(R.string.gift_delete);
                 Toast.makeText(getContext(), text, Toast.LENGTH_SHORT).show();
             }
         });
@@ -81,5 +91,9 @@ public class PresentListAdapter extends ArrayAdapter<Integer> {
 
         }
 
+
+    public synchronized void refreshData(){
+        notifyDataSetChanged();
+    }
 
 }

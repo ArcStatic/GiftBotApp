@@ -102,7 +102,7 @@ public class ListProfile extends AppCompatActivity {
         System.out.println("IdeaList check: " + giftIdeaList);
         System.out.println("StateList check: " + giftStateList);
 
-        PresentListAdapter adapter=new PresentListAdapter(this, giftStateList, giftIdeaList);
+        final PresentListAdapter adapter = new PresentListAdapter(this, giftStateList, giftIdeaList);
         list=(ListView)findViewById(R.id.giftList);
         list.setAdapter(adapter);
 
@@ -111,6 +111,13 @@ public class ListProfile extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                //See which button was clicked
+                long viewID = view.getId();
+
+                //If delete button is clicked, remove item from list
+                if (viewID == R.id.deleteItem){
+                    adapter.notifyDataSetChanged();
+                }
 
             }
         });
@@ -143,6 +150,7 @@ public class ListProfile extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(this, ChristmasList.class);
         intent.putExtra("clickID", clickID);
+        //TODO: update lists on ChristmasList view to update after deletion
 
         startActivity(intent);
     }
