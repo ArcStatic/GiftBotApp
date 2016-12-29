@@ -73,11 +73,7 @@ public class PresentListAdapter extends ArrayAdapter<Integer> {
                 //TextView tv = (TextView)rl.findViewById(R.id.giftIdea);
                 //String text = tv.getText().toString();
 
-                //Remove item from gift ideas and delete its state
-                giftState.remove(position);
-                giftIdea.remove(position);
-
-                //Let ListProfile know that the data has changed
+                //Let ListProfile know that the data will change
                 //Delete button specific - handled in onItemClick
                 ((ListView) parent).performItemClick(v, position, 0);
 

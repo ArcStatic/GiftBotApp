@@ -21,6 +21,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.Integer.parseInt;
+
 public class ChristmasList extends AppCompatActivity {
 
     //Activity views status of friends added
@@ -34,6 +36,7 @@ public class ChristmasList extends AppCompatActivity {
     public Integer boughtCount = 0;
     public Integer notBoughtCount = 0;
     public String giftIdeaState = "";
+    public Integer index = 0;
 
     public static ArrayList<String> friendNamesList = new ArrayList<>();
     public static ArrayList<String> friendImageList = new ArrayList<>();
@@ -57,73 +60,129 @@ public class ChristmasList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_christmas_list);
 
+        Bundle extras = getIntent().getExtras();
+
         //If activity reached from EnterInfo class, do this
-        try {
-            Bundle extras = getIntent().getExtras();
+        if((getIntent().getExtras() != (null)) && extras.containsKey("friendImage")) {
+            //Bundle extras = getIntent().getExtras();
             clickID = extras.getInt("clickID");
             System.out.println("ClickID = " + clickID);
             //If activity is reached from EnterInfo, create new entries in lists
             //if (clickID == null) {
-                System.out.println(extras.getString("friendName"));
-                newFriendName = extras.getString("friendName");
-                newFriendImg = extras.getString("friendImage");
-                System.out.println("FriendImg = " + newFriendImg);
+            System.out.println(extras.getString("friendName"));
+            newFriendName = extras.getString("friendName");
+            newFriendImg = extras.getString("friendImage");
+            System.out.println("FriendImg = " + newFriendImg);
+            if (newFriendName != null) {
                 friendNamesList.add(newFriendName);
                 friendImageList.add(newFriendImg);
-                System.out.println("FRIEND IMAGE LIST = " + friendImageList);
-                System.out.println("NEW FRIEND IMG = " + newFriendImg);
+            }
+            System.out.println("FRIEND IMAGE LIST = " + friendImageList);
+            System.out.println("NEW FRIEND IMG = " + newFriendImg);
 
+            giftIdeasRawText = extras.getString("ideasText");
+            System.out.println("RAW TEXT = " + giftIdeasRawText);
+
+            if (!giftIdeasRawText.equals("")) {
+
+                //Split ideas by newline char or comma
+                String[] ideaSplit = giftIdeasRawText.split("\n|,");
+                rawGiftTextList.add(giftIdeasRawText);
+                //Increment notBoughtCount for items which are actual ideas, not just whitespace
+                for (int i = 0; i < ideaSplit.length; i++) {
+                    if ((!ideaSplit[i].equals("")) && (!(ideaSplit[i].trim()).equals(""))) {
+                        notBoughtCount++;
+                    }
+                }
+                //notBoughtCount = ideaSplit.length;
+                //Create inner array list
+                for (int x = 0; x < notBoughtCount; x++) {
+                    giftNotCompleteInner.add(0);
+                    giftIdeaState += "0";
+                }
+                //Add inner list to outer arraylist
+                //Output should be in format [[0,0,0,1],[0,1,1,1,0],[1,0] ... ] ...
+                giftNotCompleteOuter.add(giftNotCompleteInner);
+
+            } else {
+                //If no ideas given, put marker integer 2
+                giftIdeaState = "2";
+                rawGiftTextList.add("");
+                giftNotCompleteInner.add(2);
+                giftNotCompleteOuter.add(giftNotCompleteInner);
+            }
+            notBoughtCount = 0;
+            giftComplete.add(0);
+            rawGiftStateList.add(giftIdeaState);
+            System.out.println("!!!!IDEA NOT BOUGHT COUNT = " + giftNotCompleteOuter);
+            System.out.println("!!!!IDEA BOUGHT COUNT = " + giftComplete);
+
+            //} else {
+            //
+            //If activity is reached from ListProfile, update lists
+
+            //}
+        }
+
+
+        else if((getIntent().getExtras() != (null)) && extras.containsKey("index")){
+        //If gift lists have been updated, do all this
+            newFriendName = "BLANK";
+            giftIdeasRawText = "NO IDEAS YET";
+            //If gift list has been edited, update it
+            if(getIntent().getExtras() != (null))
+                //Retrieve index of profile so correct info can be replaced
+                index = extras.getInt("index");
                 giftIdeasRawText = extras.getString("ideasText");
-                System.out.println("RAW TEXT = " + giftIdeasRawText);
+                giftIdeaState = extras.getString("stateText");
+
+                System.out.println("Updated giftIdeaRawText = " + giftIdeasRawText);
+                System.out.println("Updated giftIdeaState = " + giftIdeaState);
 
                 if (!giftIdeasRawText.equals("")) {
 
                     //Split ideas by newline char or comma
                     String[] ideaSplit = giftIdeasRawText.split("\n|,");
-                    rawGiftTextList.add(giftIdeasRawText);
+                    rawGiftTextList.set(index, giftIdeasRawText);
                     //Increment notBoughtCount for items which are actual ideas, not just whitespace
                     for (int i = 0; i < ideaSplit.length; i++){
                         if ((!ideaSplit[i].equals("")) && (!(ideaSplit[i].trim()).equals(""))) {
                             notBoughtCount++;
                         }
                     }
-                    //notBoughtCount = ideaSplit.length;
-                    //Create inner array list
-                    for (int x = 0; x < notBoughtCount; x++) {
-                        giftNotCompleteInner.add(0);
-                        giftIdeaState += "0";
+
+
+                    //Create updated inner array list
+                    String[] stateSplit = giftIdeaState.split("(?!^)");
+                    System.out.println("List stateSplit: " + stateSplit);
+                    for (int x = 0; x < stateSplit.length; x++) {
+                        giftNotCompleteInner.add(parseInt(stateSplit[x]));
                     }
-                    //Add inner list to outer arraylist
+                    //Add updated inner list to outer arraylist
                     //Output should be in format [[0,0,0,1],[0,1,1,1,0],[1,0] ... ] ...
-                    giftNotCompleteOuter.add(giftNotCompleteInner);
+                    giftNotCompleteOuter.set(index, giftNotCompleteInner);
 
                 } else {
-                    //If no ideas given, put marker integer 2
+                    //If all ideas deleted, replace giftNotCompleteInner with marker integer 2
                     giftIdeaState = "2";
-                    rawGiftTextList.add("");
+                    rawGiftTextList.set(index, "");
                     giftNotCompleteInner.add(2);
-                    giftNotCompleteOuter.add(giftNotCompleteInner);
+                    giftNotCompleteOuter.set(index, giftNotCompleteInner);
                 }
                 notBoughtCount = 0;
-                giftComplete.add(0);
-                rawGiftStateList.add(giftIdeaState);
+                giftComplete.set(index, 0);
+                rawGiftStateList.set(index, giftIdeaState);
                 System.out.println("!!!!IDEA NOT BOUGHT COUNT = " + giftNotCompleteOuter);
                 System.out.println("!!!!IDEA BOUGHT COUNT = " + giftComplete);
 
-            //} else {
-                //
-                //If activity is reached from ListProfile, update lists
 
-            //}
 
         }
 
-
-        //If no new contacts are added, do this
-        catch (Exception main){
+        else {
+            //If entered from main menu, do this
             newFriendName = "BLANK";
-            giftIdeasRawText = "NO IDEAS YET" ;
-
+            giftIdeasRawText = "NO IDEAS YET";
         }
 
         //Find views to prepare for context-based changes
@@ -240,7 +299,11 @@ public class ChristmasList extends AppCompatActivity {
         intent.putExtra("giftIdeasRaw", giftIdeasRawText);
         intent.putExtra("giftIdeaState", giftIdeaState);
         intent.putExtra("clickID", clickID);
+        intent.putExtra("index", index);
+        System.out.println("giftIdeaState check: " + giftIdeaState);
+
         //intent.putExtra("ideasText", contactIdeas);
         startActivity(intent);
+        finish();
     }
 }

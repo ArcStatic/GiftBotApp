@@ -23,6 +23,9 @@ public class ListProfile extends AppCompatActivity {
     public Integer notBoughtCount;
     public String giftStateRaw;
     public String giftIdeaRaw;
+    public Integer index;
+    public String ideaText = "";
+    public String stateText = "";
 
     public static ArrayList<Integer> giftStateList = new ArrayList<>();
     public static ArrayList<String> giftIdeaList = new ArrayList<>();
@@ -49,6 +52,7 @@ public class ListProfile extends AppCompatActivity {
         notBoughtCount = extras.getInt("notBoughtCount");
         giftIdeaRaw = extras.getString("giftIdeasRaw");
         giftStateRaw = extras.getString("giftIdeaState");
+        index = extras.getInt("index");
 
         //Set views
         TextView textView = (TextView) findViewById(R.id.ProfileName);
@@ -73,6 +77,9 @@ public class ListProfile extends AppCompatActivity {
 
         //Split giftstate at every character (ie. into individual digits)
         String[] stateSplit = giftStateRaw.split("(?!^)");
+        for (int i=0; i < stateSplit.length; i++){
+            System.out.println("stateSplit regex: " + stateSplit[i]);
+        }
 
         //Construct bought state list (0 = not bought, 1 = bought)
         //int j counter needed - bought state only recorded for actual ideas, not whitespace
@@ -99,9 +106,6 @@ public class ListProfile extends AppCompatActivity {
             }
         }
 
-        System.out.println("IdeaList check: " + giftIdeaList);
-        System.out.println("StateList check: " + giftStateList);
-
         final PresentListAdapter adapter = new PresentListAdapter(this, giftStateList, giftIdeaList);
         list=(ListView)findViewById(R.id.giftList);
         list.setAdapter(adapter);
@@ -116,6 +120,9 @@ public class ListProfile extends AppCompatActivity {
 
                 //If delete button is clicked, remove item from list
                 if (viewID == R.id.deleteItem){
+                    //Remove item from gift ideas and delete its state
+                    giftStateList.remove(position);
+                    giftIdeaList.remove(position);
                     adapter.notifyDataSetChanged();
                 }
 
@@ -152,6 +159,37 @@ public class ListProfile extends AppCompatActivity {
         intent.putExtra("clickID", clickID);
         //TODO: update lists on ChristmasList view to update after deletion
 
+        //Construct string to transfer for processing in ChristmasList
+        //Awful, awful method... Learn how to transfer arraylists and redo this.
+        StringBuilder ideaTextNew = new StringBuilder();
+        StringBuilder stateTextNew = new StringBuilder();
+        for (int i=0; i < giftIdeaList.size(); i++){
+            ideaTextNew.append(giftIdeaList.get(i));
+            ideaTextNew.append("\n");
+            stateTextNew.append(giftStateList.get(i));
+            //stateTextNew.append("\n");
+            //ideaText.concat(giftIdeaList.get(i));
+            //ideaText.concat("\n");
+            //stateText.concat((giftStateList.get(i)).toString());
+            //stateText.concat("\n");
+        }
+
+        ideaText = ideaTextNew.toString();
+        stateText = stateTextNew.toString();
+
+        System.out.println("IdeaList check profile: " + giftIdeaList);
+        System.out.println("StateList check profile: " + giftStateList);
+        System.out.println("ideasText check profile: " + ideaText);
+        System.out.println("stateText check profile: " + stateText);
+        System.out.println("Test statement");
+
+        intent.putExtra("ideasText", ideaText);
+        intent.putExtra("stateText", stateText);
+        intent.putExtra("index", index);
+
+
         startActivity(intent);
+        //finish() added to resolve events being dropped due to no window focus
+        finish();
     }
 }
